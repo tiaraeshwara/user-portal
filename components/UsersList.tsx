@@ -21,15 +21,15 @@ export default function UsersList() {
         page,
         ITEMS_PER_PAGE,
       );
-      
+
       // Handle both response formats
-      const userList = response.data || (Array.isArray(response) ? response : []);
+      const userList =
+        response.data || (Array.isArray(response) ? response : []);
       setUsers(Array.isArray(userList) ? userList : []);
-      
-      const total = response.total || (Array.isArray(response) ? response.length : 0);
-      setTotalPages(
-        response.totalPages || Math.ceil(total / ITEMS_PER_PAGE),
-      );
+
+      const total =
+        response.total || (Array.isArray(response) ? response.length : 0);
+      setTotalPages(response.totalPages || Math.ceil(total / ITEMS_PER_PAGE));
       setCurrentPage(page);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Failed to fetch users");
@@ -56,48 +56,55 @@ export default function UsersList() {
   };
 
   return (
-    <div className="w-full max-w-4xl">
+    <div className="w-full">
       <div className="mb-6">
         <button
           onClick={handleLoadUsers}
           disabled={loading}
-          className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:bg-gray-400 transition-colors font-medium"
+          className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-all duration-200 font-semibold shadow-md hover:shadow-lg active:shadow-sm transform hover:scale-105 active:scale-100"
         >
-          {loading ? "Loading..." : "View All Users"}
+          {loading ? (
+            <>
+              <span className="inline-block animate-spin mr-2">⟳</span>
+              Loading...
+            </>
+          ) : (
+            "View All Users"
+          )}
         </button>
       </div>
 
       {error && (
-        <div className="mb-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded">
-          <p className="font-medium">Error</p>
-          <p>{error}</p>
+        <div className="mb-4 p-4 bg-red-50 border border-red-300 text-red-800 rounded-lg shadow-sm">
+          <p className="font-semibold">Error</p>
+          <p className="text-sm mt-1">{error}</p>
         </div>
       )}
 
       {users.length > 0 && (
         <>
-          <div className="overflow-x-auto border border-gray-200 rounded-lg">
+          <div className="overflow-x-auto border border-gray-200 rounded-lg shadow-sm">
             <table className="w-full">
-              <thead className="bg-gray-50 border-b border-gray-200">
+              <thead className="bg-gradient-to-r from-gray-50 to-gray-100 border-b border-gray-200">
                 <tr>
-                  <th className="px-6 py-3 text-left text-sm font-semibold text-gray-900">
+                  <th className="px-6 py-4 text-left text-sm font-semibold text-gray-900">
                     ID
                   </th>
-                  <th className="px-6 py-3 text-left text-sm font-semibold text-gray-900">
+                  <th className="px-6 py-4 text-left text-sm font-semibold text-gray-900">
                     Name
                   </th>
-                  <th className="px-6 py-3 text-left text-sm font-semibold text-gray-900">
+                  <th className="px-6 py-4 text-left text-sm font-semibold text-gray-900">
                     Email
                   </th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody className="divide-y divide-gray-200">
                 {users.map((user) => (
                   <tr
                     key={user.id}
-                    className="border-b border-gray-200 hover:bg-gray-50"
+                    className="hover:bg-blue-50 transition-colors duration-150"
                   >
-                    <td className="px-6 py-4 text-sm text-gray-900">
+                    <td className="px-6 py-4 text-sm font-medium text-gray-900">
                       {user.id}
                     </td>
                     <td className="px-6 py-4 text-sm text-gray-900">
@@ -113,27 +120,27 @@ export default function UsersList() {
           </div>
 
           {totalPages > 1 && (
-            <div className="mt-6 flex items-center justify-between">
+            <div className="mt-8 flex flex-col gap-4 sm:flex-row items-center justify-between">
               <button
                 onClick={handlePrevPage}
                 disabled={currentPage === 1 || loading}
-                className="px-4 py-2 bg-gray-300 text-gray-800 rounded hover:bg-gray-400 disabled:bg-gray-200 disabled:text-gray-400 transition-colors font-medium"
+                className="px-4 py-2 bg-white border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 disabled:bg-gray-100 disabled:text-gray-400 disabled:cursor-not-allowed transition-all duration-200 font-medium shadow-sm hover:shadow-md"
               >
-                Previous
+                ← Previous
               </button>
 
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 flex-wrap justify-center">
                 {Array.from({ length: totalPages }, (_, i) => i + 1).map(
                   (page) => (
                     <button
                       key={page}
                       onClick={() => fetchUsers(page)}
                       disabled={loading}
-                      className={`px-3 py-2 rounded font-medium transition-colors ${
+                      className={`px-3 py-2 rounded-lg font-medium transition-all duration-150 ${
                         currentPage === page
-                          ? "bg-blue-600 text-white"
-                          : "bg-gray-200 text-gray-800 hover:bg-gray-300"
-                      } disabled:bg-gray-100`}
+                          ? "bg-blue-600 text-white shadow-md"
+                          : "bg-white border border-gray-300 text-gray-700 hover:bg-gray-50 hover:border-gray-400"
+                      } disabled:bg-gray-100 disabled:cursor-not-allowed`}
                     >
                       {page}
                     </button>
@@ -144,9 +151,9 @@ export default function UsersList() {
               <button
                 onClick={handleNextPage}
                 disabled={currentPage === totalPages || loading}
-                className="px-4 py-2 bg-gray-300 text-gray-800 rounded hover:bg-gray-400 disabled:bg-gray-200 disabled:text-gray-400 transition-colors font-medium"
+                className="px-4 py-2 bg-white border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 disabled:bg-gray-100 disabled:text-gray-400 disabled:cursor-not-allowed transition-all duration-200 font-medium shadow-sm hover:shadow-md"
               >
-                Next
+                Next →
               </button>
             </div>
           )}
@@ -154,9 +161,9 @@ export default function UsersList() {
       )}
 
       {!loading && users.length === 0 && !error && (
-        <div className="text-center py-12">
-          <p className="text-gray-500 text-lg">
-            Click &quot;View All Users&quot; to load users
+        <div className="text-center py-16 bg-gradient-to-b from-gray-50 to-white rounded-lg border border-gray-200">
+          <p className="text-gray-500 text-lg font-medium">
+            👥 Click &quot;View All Users&quot; to load users
           </p>
         </div>
       )}

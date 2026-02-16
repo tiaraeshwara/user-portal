@@ -55,45 +55,47 @@ export default function UserSearch() {
   };
 
   return (
-    <div className="w-full max-w-md">
-      <div className="bg-white border border-gray-200 rounded-lg p-6 shadow-sm">
-        <h2 className="text-xl font-semibold text-gray-900 mb-4">
-          Search User
+    <div className="w-full">
+      <div className="bg-white border border-gray-200 rounded-lg p-6 shadow-md">
+        <h2 className="text-2xl font-bold text-gray-900 mb-6">
+          🔍 Search User
         </h2>
 
-        <form onSubmit={handleSearch} className="space-y-4">
+        <form onSubmit={handleSearch} className="space-y-5">
           {/* Search Type Toggle */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-semibold text-gray-700 mb-3">
               Search By
             </label>
-            <div className="flex gap-4">
-              <label className="flex items-center">
+            <div className="flex gap-6 bg-gray-50 p-3 rounded-lg border border-gray-200">
+              <label className="flex items-center cursor-pointer hover:text-blue-600 transition-colors">
                 <input
                   type="radio"
                   value="id"
                   checked={searchType === "id"}
                   onChange={(e) => setSearchType(e.target.value as SearchType)}
-                  className="mr-2"
+                  className="w-4 h-4 mr-3 accent-blue-600 cursor-pointer"
                 />
-                <span className="text-sm text-gray-700">User ID</span>
+                <span className="text-sm font-medium text-gray-700">
+                  User ID
+                </span>
               </label>
-              <label className="flex items-center">
+              <label className="flex items-center cursor-pointer hover:text-blue-600 transition-colors">
                 <input
                   type="radio"
                   value="email"
                   checked={searchType === "email"}
                   onChange={(e) => setSearchType(e.target.value as SearchType)}
-                  className="mr-2"
+                  className="w-4 h-4 mr-3 accent-blue-600 cursor-pointer"
                 />
-                <span className="text-sm text-gray-700">Email</span>
+                <span className="text-sm font-medium text-gray-700">Email</span>
               </label>
             </div>
           </div>
 
           {/* Search Input */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-semibold text-gray-700 mb-2">
               {searchType === "id" ? "Enter User ID" : "Enter Email Address"}
             </label>
             <input
@@ -103,7 +105,7 @@ export default function UserSearch() {
               placeholder={
                 searchType === "id" ? "e.g., user123" : "e.g., user@example.com"
               }
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all duration-200 shadow-sm"
             />
           </div>
 
@@ -111,89 +113,106 @@ export default function UserSearch() {
           <button
             type="submit"
             disabled={loading || !searchValue.trim()}
-            className="w-full px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:bg-gray-400 transition-colors font-medium"
+            className="w-full px-4 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-all duration-200 font-semibold shadow-md hover:shadow-lg active:shadow-sm transform hover:scale-105 active:scale-100"
           >
-            {loading ? "Searching..." : "Search"}
+            {loading ? (
+              <>
+                <span className="inline-block animate-spin mr-2">⟳</span>
+                Searching...
+              </>
+            ) : (
+              "Search"
+            )}
           </button>
         </form>
 
         {/* Error Message */}
         {error && (
-          <div className="mt-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded">
-            <p className="font-medium">Error</p>
-            <p className="text-sm">{error}</p>
+          <div className="mt-5 p-4 bg-red-50 border border-red-300 text-red-800 rounded-lg shadow-sm animate-pulse">
+            <p className="font-semibold">⚠️ Error</p>
+            <p className="text-sm mt-1">{error}</p>
           </div>
         )}
 
         {/* Search Results */}
         {result && (
-          <div className="mt-4 p-4 bg-green-50 border border-green-200 rounded">
-            <p className="font-medium text-green-800 mb-3">User Found</p>
-            <div className="space-y-2">
+          <div className="mt-5 p-5 bg-gradient-to-br from-green-50 to-emerald-50 border border-green-300 rounded-lg shadow-sm">
+            <p className="font-semibold text-green-800 mb-4">✓ User Found</p>
+            <div className="space-y-3">
               {result.id && (
-                <div className="flex justify-between">
+                <div className="flex justify-between items-center py-2 border-b border-green-200">
                   <span className="text-sm font-medium text-gray-700">ID:</span>
-                  <span className="text-sm text-gray-900">{result.id}</span>
+                  <span className="text-sm font-semibold text-gray-900">
+                    {result.id}
+                  </span>
                 </div>
               )}
               {result.firstName && (
-                <div className="flex justify-between">
+                <div className="flex justify-between items-center py-2 border-b border-green-200">
                   <span className="text-sm font-medium text-gray-700">
                     First Name:
                   </span>
-                  <span className="text-sm text-gray-900">
+                  <span className="text-sm font-semibold text-gray-900">
                     {result.firstName}
                   </span>
                 </div>
               )}
               {result.lastName && (
-                <div className="flex justify-between">
+                <div className="flex justify-between items-center py-2 border-b border-green-200">
                   <span className="text-sm font-medium text-gray-700">
                     Last Name:
                   </span>
-                  <span className="text-sm text-gray-900">
+                  <span className="text-sm font-semibold text-gray-900">
                     {result.lastName}
                   </span>
                 </div>
               )}
               {result.email && (
-                <div className="flex justify-between">
+                <div className="flex justify-between items-center py-2 border-b border-green-200">
                   <span className="text-sm font-medium text-gray-700">
                     Email:
                   </span>
-                  <span className="text-sm text-gray-900">{result.email}</span>
+                  <span className="text-sm font-semibold text-gray-900 break-all">
+                    {result.email}
+                  </span>
                 </div>
               )}
               {result.age && (
-                <div className="flex justify-between">
+                <div className="flex justify-between items-center py-2 border-b border-green-200">
                   <span className="text-sm font-medium text-gray-700">
                     Age:
                   </span>
-                  <span className="text-sm text-gray-900">{result.age}</span>
+                  <span className="text-sm font-semibold text-gray-900">
+                    {result.age}
+                  </span>
                 </div>
               )}
               {result.gender && (
-                <div className="flex justify-between">
+                <div className="flex justify-between items-center py-2 border-b border-green-200">
                   <span className="text-sm font-medium text-gray-700">
                     Gender:
                   </span>
-                  <span className="text-sm text-gray-900">{result.gender}</span>
+                  <span className="text-sm font-semibold text-gray-900">
+                    {result.gender}
+                  </span>
                 </div>
               )}
               {result.city && (
-                <div className="flex justify-between">
+                <div className="flex justify-between items-center py-2 border-b border-green-200">
                   <span className="text-sm font-medium text-gray-700">
                     City:
                   </span>
-                  <span className="text-sm text-gray-900">{result.city}</span>
+                  <span className="text-sm font-semibold text-gray-900">
+                    {result.city}
+                  </span>
                 </div>
               )}
               {result.phoneNumber && (
-                <div className="flex justify-between">
+                <div className="flex justify-between items-center py-2">
                   <span className="text-sm font-medium text-gray-700">
                     Phone:
                   </span>
-                  <span className="text-sm text-gray-900">
+                  <span className="text-sm font-semibold text-gray-900">
                     {result.phoneNumber}
                   </span>
                 </div>
@@ -204,8 +223,10 @@ export default function UserSearch() {
 
         {/* No Results Message */}
         {searched && !result && !error && !loading && (
-          <div className="mt-4 p-4 bg-gray-100 border border-gray-300 text-gray-700 rounded">
-            <p className="text-sm">No user found with the given {searchType}</p>
+          <div className="mt-5 p-4 bg-gray-50 border border-gray-300 text-gray-700 rounded-lg">
+            <p className="text-sm font-medium">
+              ℹ️ No user found with the given {searchType}
+            </p>
           </div>
         )}
       </div>
