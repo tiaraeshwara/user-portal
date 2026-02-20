@@ -72,7 +72,6 @@ export async function getUserByEmail(
     if (!response.ok) {
       throw new Error(`Failed to fetch user: ${response.statusText}`);
     }
-    console.log("******* Response from getUserByEmail:", response);
 
     const data = await response.json();
     return data;

@@ -108,7 +108,7 @@ export default function UsersList() {
                       {user.id}
                     </td>
                     <td className="px-6 py-4 text-sm text-gray-900">
-                      {user.name}
+                      {user.firstName} {user.lastName}
                     </td>
                     <td className="px-6 py-4 text-sm text-gray-600">
                       {user.email}
