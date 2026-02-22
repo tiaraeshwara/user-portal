@@ -6,7 +6,6 @@ import UsersList from "@/components/UsersList";
 import UserSearch from "@/components/UserSearch";
 
 export default function Home() {
-  // Ultra-smooth, professional transitions
   const containerVariants = {
     hidden: { opacity: 0, y: 40 },
     visible: { 
@@ -14,29 +13,23 @@ export default function Home() {
       y: 0, 
       transition: { 
         duration: 1, 
-        ease: [0.19, 1, 0.22, 1], // Apple-style Expo ease
+        ease: [0.19, 1, 0.22, 1],
         staggerChildren: 0.1 
       } 
     }
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, scale: 0.95 },
-    visible: { 
-      opacity: 1, 
-      scale: 1,
-      transition: { duration: 0.8, ease: "easeOut" }
-    }
+    hidden: { opacity: 0, scale: 0.98 },
+    visible: { opacity: 1, scale: 1, transition: { duration: 0.8 } }
   };
 
   return (
-    <main className="min-h-screen bg-[#0a0510] text-slate-200 selection:bg-purple-500/30 py-16 px-4 md:px-8 flex justify-center items-center font-sans">
+    <main className="min-h-screen bg-[#0a0510] text-slate-200 py-16 px-4 md:px-8 flex justify-center items-center font-sans relative overflow-hidden">
       
-      {/* Dynamic Ambient Background */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-[-10%] left-[-5%] w-[600px] h-[600px] bg-purple-600/15 blur-[120px] rounded-full animate-pulse" />
-        <div className="absolute bottom-[-10%] right-[-5%] w-[500px] h-[500px] bg-blue-600/10 blur-[120px] rounded-full" />
-      </div>
+      {/* Ambient Background Glows */}
+      <div className="absolute top-[-10%] left-[-5%] w-[600px] h-[600px] bg-purple-600/10 blur-[120px] rounded-full pointer-events-none" />
+      <div className="absolute bottom-[-10%] right-[-5%] w-[500px] h-[500px] bg-blue-600/5 blur-[120px] rounded-full pointer-events-none" />
 
       <motion.div 
         variants={containerVariants}
@@ -44,100 +37,90 @@ export default function Home() {
         animate="visible"
         className="w-full max-w-7xl relative z-10"
       >
-        {/* Header: Clean & Spaced */}
-        <header className="mb-12 flex flex-col md:flex-row justify-between items-end gap-6 px-4">
-          <div className="space-y-2">
-            <motion.h1 
-              className="text-6xl md:text-7xl font-bold tracking-tight text-white"
-              style={{ letterSpacing: "-0.04em" }}
-            >
-              Astro<span className="text-purple-400 font-light text-5xl">OS</span>
-            </motion.h1>
-            <p className="text-purple-200/50 text-xl font-light tracking-wide max-w-md">
-              Centralized user management system with neural directory sync.
+        {/* Header Section */}
+        <header className="mb-10 flex flex-col md:flex-row justify-between items-end px-4">
+          <div className="space-y-1">
+            <h1 className="text-6xl font-bold tracking-tighter text-white">
+              Astro<span className="text-purple-400/80 font-extralight">Portal</span>
+            </h1>
+            <p className="text-purple-200/40 text-lg font-light italic">
+              Orchestrate your central directory with precision
             </p>
           </div>
-          
-          <div className="flex items-center gap-4">
-            <div className="text-right hidden md:block">
-              <p className="text-xs uppercase tracking-[0.3em] text-purple-400/60 font-bold">System Status</p>
-              <p className="text-sm text-green-400/80 font-mono">ALL SYSTEMS NOMINAL</p>
-            </div>
-            <div className="h-20 w-20 bg-white/5 backdrop-blur-xl rounded-3xl border border-white/10 flex items-center justify-center text-4xl shadow-2xl ring-1 ring-white/5">
-              👨‍🚀
-            </div>
+          <div className="h-20 w-20 bg-white/5 backdrop-blur-2xl rounded-[2rem] border border-white/10 flex items-center justify-center text-4xl shadow-2xl ring-1 ring-white/10">
+            👨‍🚀
           </div>
         </header>
 
         {/* Dashboard Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           
-          {/* Main Content Area: Active Directory */}
+          {/* Main Active Directory Section */}
           <motion.section variants={itemVariants} className="lg:col-span-8">
-            <div className="h-full bg-white/[0.03] backdrop-blur-3xl border border-white/10 rounded-[40px] p-10 shadow-2xl ring-1 ring-white/10 transition-all hover:bg-white/[0.05]">
-              <div className="flex justify-between items-center mb-10">
-                <div className="space-y-1">
-                  <h2 className="text-3xl font-semibold text-white">Active Directory</h2>
-                  <p className="text-sm text-slate-500 font-medium">Real-time user synchronization</p>
+            <div className="h-full bg-white/[0.02] backdrop-blur-3xl border border-white/10 rounded-[48px] p-10 shadow-2xl ring-1 ring-white/5 flex flex-col">
+              
+              <div className="flex justify-between items-center mb-12">
+                <div>
+                  <h2 className="text-3xl font-semibold text-white tracking-tight">Active Directory</h2>
+                  <p className="text-xs uppercase tracking-[0.3em] text-purple-400/50 mt-1 font-bold">Real-time Synchronization</p>
                 </div>
-                <button className="group relative px-6 py-2 overflow-hidden rounded-full border border-white/10 bg-white/5 text-xs font-bold tracking-widest uppercase transition-all hover:border-purple-500/50">
-                  <span className="relative z-10">View All Records</span>
-                  <div className="absolute inset-0 bg-purple-500/10 opacity-0 group-hover:opacity-100 transition-opacity" />
+                {/* Clean, Elegant Button */}
+                <button className="px-6 py-2 bg-purple-500/10 hover:bg-purple-500/20 text-purple-200 text-[10px] font-bold rounded-full transition-all tracking-[0.2em] uppercase border border-purple-500/20 active:scale-95">
+                  View All Records
                 </button>
               </div>
-              
-              <div className="min-h-[400px]">
-                <UsersList />
+
+              {/* The "Box" Content - Adjusted for Elegance */}
+              <div className="flex-grow flex flex-col items-center justify-center border border-white/5 rounded-[32px] bg-black/20 p-12 group transition-all hover:bg-black/30">
+                <div className="w-16 h-16 bg-white/5 rounded-full flex items-center justify-center mb-6 border border-white/10 group-hover:scale-110 transition-transform">
+                  <span className="text-2xl opacity-50">👥</span>
+                </div>
+                <p className="text-slate-400 font-light tracking-wide text-center max-w-xs leading-relaxed">
+                  The directory is currently <span className="text-purple-400/60 font-medium italic">standby</span>. Click the button above to initialize user streams.
+                </p>
+                
+                {/* Nested Component (UsersList) would render here */}
+                <div className="w-full mt-4">
+                   <UsersList />
+                </div>
               </div>
             </div>
           </motion.section>
 
-          {/* Sidebar Area */}
+          {/* Sidebar Section */}
           <div className="lg:col-span-4 space-y-8">
-            
-            {/* Search Component */}
-            <motion.section variants={itemVariants} className="bg-white/[0.04] backdrop-blur-2xl border border-white/10 rounded-[40px] p-8 shadow-xl ring-1 ring-white/5">
-              <div className="flex items-center gap-3 mb-8">
-                <div className="w-10 h-10 rounded-2xl bg-purple-500/20 border border-purple-500/30 flex items-center justify-center text-purple-300">
-                  🔍
-                </div>
-                <h3 className="text-lg font-bold text-white tracking-tight">Identity Search</h3>
-              </div>
+            <motion.section variants={itemVariants} className="bg-white/[0.04] backdrop-blur-xl border border-white/10 rounded-[40px] p-8 shadow-xl">
+              <h3 className="text-lg font-bold text-white mb-6 flex items-center gap-3">
+                <span className="p-2 bg-purple-500/20 rounded-xl text-sm border border-purple-500/20">🔍</span> 
+                Search Identity
+              </h3>
               <UserSearch />
             </motion.section>
 
-            {/* Profile Update Placeholder */}
-            <motion.section variants={itemVariants} className="bg-white/[0.02] border border-white/5 rounded-[40px] p-8 transition-all hover:bg-white/[0.04]">
-              <h3 className="text-lg font-bold text-blue-300/80 mb-3 flex items-center gap-3">
-                <span className="w-10 h-10 rounded-2xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-sm">📝</span> 
-                Modifications
+            <motion.section variants={itemVariants} className="bg-white/[0.02] border border-white/5 rounded-[40px] p-8">
+              <h3 className="text-md font-bold text-blue-300/60 mb-2 flex items-center gap-3">
+                <span className="p-2 bg-blue-500/10 rounded-xl text-sm">📝</span> Update
               </h3>
-              <p className="text-sm text-slate-500 leading-relaxed italic">
-                Select a user profile from the directory to initialize the editor module.
+              <p className="text-xs text-slate-500 italic leading-relaxed">
+                Select a node from the directory to enable modification protocols.
               </p>
             </motion.section>
 
-            {/* Danger Zone */}
-            <motion.section 
-              variants={itemVariants} 
-              className="bg-red-500/[0.03] border border-red-500/20 rounded-[40px] p-8 group transition-all"
-            >
-              <h3 className="text-lg font-bold text-red-400/80 mb-6 flex items-center gap-3">
-                <span className="w-10 h-10 rounded-2xl bg-red-500/20 border border-red-500/30 flex items-center justify-center text-sm">🗑️</span> 
-                Terminal Actions
+            <motion.section variants={itemVariants} className="bg-red-500/[0.02] border border-red-500/10 rounded-[40px] p-8 group">
+              <h3 className="text-md font-bold text-red-400/60 mb-4 flex items-center gap-3">
+                <span className="p-2 bg-red-500/10 rounded-xl text-sm">🗑️</span> Danger Zone
               </h3>
-              <button className="w-full py-4 bg-red-500/10 group-hover:bg-red-600 group-hover:text-white text-red-400 border border-red-500/20 rounded-2xl font-bold transition-all duration-300 text-xs tracking-[0.2em] uppercase">
+              <button className="w-full py-4 bg-transparent border border-red-500/20 group-hover:bg-red-500/10 text-red-500/50 group-hover:text-red-400 rounded-2xl text-[10px] font-black tracking-[0.3em] uppercase transition-all">
                 Purge Record
               </button>
             </motion.section>
-
           </div>
         </div>
 
-        {/* Minimalist Footer */}
-        <footer className="mt-12 pt-8 border-t border-white/5 flex justify-between items-center text-[10px] text-slate-600 font-bold tracking-[0.4em] uppercase">
-          <div>SECURE ACCESS GRANTED</div>
-          <div>EST 2026 • ASTRO CORP</div>
+        {/* Footer */}
+        <footer className="mt-12 px-4 flex justify-between items-center text-[9px] text-white/10 font-bold tracking-[0.5em] uppercase">
+          <div>System: Secure</div>
+          <div>Terminal ID: ASTRO-99</div>
         </footer>
       </motion.div>
     </main>
