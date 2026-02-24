@@ -7,126 +7,132 @@ import UserSearch from "@/components/UserSearch";
 
 export default function Home() {
   const containerVariants = {
-    hidden: { opacity: 0, scale: 0.98 },
+    hidden: { opacity: 0, y: 30 },
     visible: { 
       opacity: 1, 
-      scale: 1, 
-      transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1], staggerChildren: 0.1 } 
+      y: 0, 
+      transition: { duration: 1, ease: [0.16, 1, 0.3, 1], staggerChildren: 0.15 } 
     }
   };
 
   const itemVariants = {
     hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
+    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } }
   };
 
   return (
-    <main className="min-h-screen bg-[#050b18] bg-[radial-gradient(circle_at_20%_20%,#0a1a35_0%,#050b18_100%)] py-10 px-6 flex justify-center items-center font-sans relative overflow-hidden">
+    <main className="min-h-screen relative overflow-hidden bg-[#050b18] px-6 py-16 lg:px-12">
       
-      {/* Background Neon Accents */}
-      <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-cyan-500/10 blur-[120px] rounded-full pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-blue-600/10 blur-[120px] rounded-full pointer-events-none" />
+      {/* Dynamic Background Elements */}
+      <div className="absolute -top-[10%] -right-[10%] w-[600px] h-[600px] bg-cyan-500/10 blur-[120px] rounded-full animate-float" />
+      <div className="absolute -bottom-[10%] -left-[10%] w-[500px] h-[500px] bg-blue-600/10 blur-[120px] rounded-full animate-float" style={{ animationDelay: '2s' }} />
 
       <motion.div 
         variants={containerVariants}
         initial="hidden"
         animate="visible"
-        className="w-full max-w-6xl relative z-10"
+        className="max-w-7xl mx-auto relative z-10"
       >
         
-        {/* 1. TOP NAV BAR (Sleek Header) */}
-        <header className="mb-8 p-6 bg-white/[0.02] backdrop-blur-3xl border border-white/10 rounded-[30px] flex justify-between items-center shadow-2xl ring-1 ring-white/5">
+        {/* 1. MINIMALIST HEADER */}
+        <header className="mb-16 flex flex-col md:flex-row justify-between items-end md:items-center border-b border-white/5 pb-8">
           <div className="space-y-1">
-            <h1 className="text-4xl font-bold tracking-tighter text-white">
-              Astro<span className="text-cyan-400">Portal</span>
+            <h1 className="text-5xl font-light tracking-tight text-white leading-none">
+              User<span className="font-black text-cyan-400">Portal</span>
             </h1>
-            <p className="text-cyan-200/40 text-xs font-medium uppercase tracking-[0.3em]">Centralized Directory Sync</p>
+            <div className="flex items-center gap-3">
+              <span className="h-[1px] w-8 bg-cyan-500/50"></span>
+              <p className="text-cyan-200/40 text-xs font-bold uppercase tracking-[0.4em]">Directory Synchronization</p>
+            </div>
           </div>
-          <div className="h-14 w-14 bg-cyan-500/10 rounded-2xl border border-cyan-400/30 flex items-center justify-center text-3xl shadow-[0_0_20px_rgba(34,211,238,0.2)]">
-             👨‍🚀
+          
+          <div className="mt-6 md:mt-0 flex items-center gap-4">
+            <div className="text-right hidden sm:block">
+              <p className="text-[10px] text-white/30 uppercase tracking-widest font-bold">System Status</p>
+              <p className="text-cyan-400 text-xs font-mono">NODE_ACTIVE_01</p>
+            </div>
+            <div className="h-14 w-14 glass-panel rounded-2xl flex items-center justify-center text-3xl shadow-cyan-500/10 shadow-lg">
+                👨‍🚀
+            </div>
           </div>
         </header>
 
-        {/* Dashboard Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+        {/* 2. DASHBOARD GRID */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
           
-          {/* 2. MAIN DIRECTORY PANEL (Cyber-Glass) */}
-          <motion.section variants={itemVariants} className="lg:col-span-7 h-full">
-            <div className="h-full bg-white/[0.03] backdrop-blur-2xl border border-cyan-400/20 rounded-[40px] p-8 shadow-2xl relative group overflow-hidden">
-              {/* Neon Top Edge Glow */}
-              <div className="absolute top-0 left-10 right-10 h-[1px] bg-gradient-to-r from-transparent via-cyan-400/50 to-transparent" />
-              
-              <div className="flex justify-between items-center mb-8 px-2">
-                <h2 className="text-xl font-semibold text-white tracking-wide">Active Directory</h2>
-                <span className="px-3 py-1 bg-cyan-500/10 border border-cyan-400/20 text-cyan-300 text-[10px] rounded-md font-bold uppercase tracking-widest">Live</span>
-              </div>
-
-              {/* Functional Container */}
-              <div className="bg-[#040916]/80 rounded-[24px] border border-white/5 p-6 min-h-[400px] shadow-inner">
-                <UsersList />
-                
-                {/* Visual Placeholder (if no users) */}
-                <div className="flex flex-col items-center justify-center py-20 opacity-30">
-                  <div className="flex gap-2 mb-4">
-                    <span className="text-cyan-400 text-2xl animate-pulse">≫≫≫</span>
+          {/* MAIN DIRECTORY PANEL */}
+          <motion.section variants={itemVariants} className="lg:col-span-8">
+            <div className="glass-panel rounded-[2rem] p-1 overflow-hidden">
+              <div className="p-8 bg-[#040916]/40 rounded-[1.8rem]">
+                <div className="flex justify-between items-center mb-10">
+                  <div>
+                    <h2 className="text-2xl font-semibold text-white tracking-tight">Active Records</h2>
+                    <p className="text-white/30 text-sm mt-1">Live database of synchronized users</p>
                   </div>
-                  <p className="text-xs text-white uppercase tracking-[0.4em] font-bold">Connecting Stream</p>
+                  <div className="flex items-center gap-2 px-4 py-2 bg-cyan-500/5 border border-cyan-500/20 rounded-full">
+                    <span className="w-1.5 h-1.5 bg-cyan-400 rounded-full animate-pulse" />
+                    <span className="text-cyan-400 text-[10px] font-black uppercase tracking-tighter">Live Syncing</span>
+                  </div>
+                </div>
+
+                <div className="min-h-[500px] custom-scrollbar overflow-y-auto">
+                  <UsersList />
                 </div>
               </div>
             </div>
           </motion.section>
 
-          {/* 3. SIDEBAR STACK */}
-          <div className="lg:col-span-5 flex flex-col gap-6">
+          {/* SIDEBAR */}
+          <div className="lg:col-span-4 space-y-8">
             
             {/* SEARCH IDENTITY */}
-            <motion.section variants={itemVariants} className="bg-white/[0.04] backdrop-blur-3xl border border-white/10 rounded-[40px] p-8 shadow-xl ring-1 ring-white/10">
-              <div className="flex items-center gap-3 mb-6">
-                <div className="p-2 bg-cyan-500/10 rounded-lg border border-cyan-500/20">
-                  <span className="text-cyan-400">🔍</span>
+            <motion.section variants={itemVariants} className="glass-panel rounded-[2rem] p-8">
+              <div className="flex items-center gap-4 mb-6">
+                <div className="w-10 h-10 bg-cyan-400/10 rounded-xl flex items-center justify-center text-cyan-400">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                  </svg>
                 </div>
-                <h3 className="text-sm font-bold text-white uppercase tracking-widest">Search User</h3>
+                <h3 className="text-sm font-bold text-white uppercase tracking-widest">Global Search</h3>
               </div>
-              <div className="bg-[#050b18]/60 p-4 rounded-2xl border border-white/5 shadow-inner">
+              <div className="bg-black/20 rounded-2xl p-2">
                 <UserSearch />
               </div>
             </motion.section>
 
-            {/* UPDATE SECTION */}
-            <motion.section variants={itemVariants} className="bg-white/[0.02] border border-white/5 rounded-[40px] p-8 transition-all hover:bg-white/[0.04]">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="p-2 bg-blue-500/10 rounded-lg">
-                  <span className="text-blue-400">📝</span>
-                </div>
-                <h3 className="text-sm font-bold text-blue-200/60 uppercase tracking-widest">Modifications</h3>
+            {/* QUICK ACTIONS */}
+            <motion.section variants={itemVariants} className="glass-panel rounded-[2rem] p-8 relative overflow-hidden group">
+              <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-12 h-12">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+                </svg>
               </div>
-              <p className="text-[11px] text-white/20 italic leading-relaxed">
-                Initialize update sequence by selecting a node from the registry...
+              <h3 className="text-sm font-bold text-white uppercase tracking-widest mb-4">Operations</h3>
+              <p className="text-white/40 text-sm leading-relaxed mb-6 font-light italic">
+                Select a directory node to begin modification sequences.
               </p>
+              <button className="w-full py-4 bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl text-white text-[10px] font-bold uppercase tracking-[0.2em] transition-all">
+                Access Audit Logs
+              </button>
             </motion.section>
 
             {/* DANGER ZONE */}
-            <motion.section variants={itemVariants} className="bg-red-500/[0.02] border border-red-500/20 rounded-[40px] p-8 group">
-              <div className="flex items-center gap-3 mb-6">
-                 <div className="p-2 bg-red-500/10 rounded-lg">
-                    <span className="text-red-400">🗑️</span>
-                 </div>
-                 <h3 className="text-sm font-bold text-red-400/60 uppercase tracking-widest">Terminal Action</h3>
-              </div>
-              <button className="w-full py-4 bg-transparent group-hover:bg-red-500/20 text-red-500 border border-red-500/20 rounded-xl text-[10px] font-black tracking-[0.3em] uppercase transition-all">
-                Purge Record
+            <motion.section variants={itemVariants} className="border border-red-500/10 bg-red-500/[0.02] rounded-[2rem] p-8">
+              <h3 className="text-red-400/60 text-[10px] font-black uppercase tracking-[0.3em] mb-6">Termination Zone</h3>
+              <button className="w-full py-4 bg-red-500/10 hover:bg-red-500/20 text-red-500 border border-red-500/20 rounded-xl text-[10px] font-black tracking-[0.3em] uppercase transition-all shadow-lg shadow-red-500/5">
+                Purge Database Record
               </button>
             </motion.section>
 
           </div>
         </div>
 
-        {/* 4. SYSTEM FOOTER */}
-        <footer className="mt-8 flex justify-between items-center px-4 text-[9px] text-cyan-200/10 font-bold tracking-[0.5em] uppercase">
-          <div>SECURE_OS v2.4</div>
-          <div className="flex items-center gap-2">
-            <span className="w-1.5 h-1.5 bg-cyan-500 rounded-full animate-ping" />
-            SYNCHRONIZED
+        {/* 3. FOOTER */}
+        <footer className="mt-20 flex justify-between items-center text-[9px] text-white/10 font-bold uppercase tracking-[0.5em]">
+          <p>© 2026 ASTRO_PORTAL // SECURE_DISTRO</p>
+          <div className="flex items-center gap-6">
+            <span className="hover:text-cyan-500/40 cursor-pointer transition-colors">Documentation</span>
+            <span className="hover:text-cyan-500/40 cursor-pointer transition-colors">API Keys</span>
           </div>
         </footer>
       </motion.div>
