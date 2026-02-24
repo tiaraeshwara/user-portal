@@ -88,13 +88,16 @@ export default function UsersList() {
               <thead className="bg-gradient-to-r from-gray-50 to-gray-100 border-b border-gray-200">
                 <tr>
                   <th className="px-6 py-4 text-left text-sm font-semibold text-gray-900">
-                    ID
-                  </th>
-                  <th className="px-6 py-4 text-left text-sm font-semibold text-gray-900">
                     Name
                   </th>
                   <th className="px-6 py-4 text-left text-sm font-semibold text-gray-900">
                     Email
+                  </th>
+                  <th className="px-6 py-4 text-left text-sm font-semibold text-gray-900">
+                    Gender
+                  </th>
+                   <th className="px-6 py-4 text-left text-sm font-semibold text-gray-900">
+                    Age
                   </th>
                 </tr>
               </thead>
@@ -104,14 +107,17 @@ export default function UsersList() {
                     key={user.id}
                     className="hover:bg-blue-50 transition-colors duration-150"
                   >
-                    <td className="px-6 py-4 text-sm font-medium text-gray-900">
-                      {user.id}
-                    </td>
                     <td className="px-6 py-4 text-sm text-gray-900">
                       {user.firstName} {user.lastName}
                     </td>
                     <td className="px-6 py-4 text-sm text-gray-600">
                       {user.email}
+                    </td>
+                    <td className="px-6 py-4 text-sm text-gray-600">
+                      {user.gender}
+                    </td>
+                    <td className="px-6 py-4 text-sm text-gray-600">
+                      {user.age}
                     </td>
                   </tr>
                 ))}
