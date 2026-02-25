@@ -36,7 +36,6 @@ export default function UserSearch() {
         response = await getUserByEmail(searchValue.trim());
       }
 
-      console.log("******* Response from search:", response);
       if (response.data) {
         setResult({
           ...response.data,
