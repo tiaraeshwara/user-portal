@@ -9,12 +9,12 @@
 
 body {
   background-color: var(--bg-deep);
-  color: #ffffff; /* Changed to white for better visibility on dark theme */
-  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  color: #ffffff;
+  font-family: 'Inter', system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
 }
 
-/* Glassmorphism Core */
+/* Glassmorphism */
 .glass-panel {
   background: var(--glass-bg);
   backdrop-filter: blur(20px);
@@ -25,64 +25,50 @@ body {
 
 .glass-panel:hover {
   border-color: rgba(34, 211, 238, 0.2);
-  background: rgba(255, 255, 255, 0.04);
 }
 
-/* --- Futuristic Form Elements --- */
-
+/* Form Styles */
 .form-label {
   display: block;
-  font-size: 10px;
+  font-size: 9px;
   font-weight: 900;
   text-transform: uppercase;
-  letter-spacing: 0.2em;
-  color: rgba(34, 211, 238, 0.6);
-  margin-bottom: 8px;
+  letter-spacing: 0.3em;
+  color: rgba(34, 211, 238, 0.5);
+  margin-bottom: 6px;
 }
 
 .form-input {
   width: 100%;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 12px;
   padding: 14px 18px;
   color: white;
-  font-size: 14px;
+  font-size: 13px;
   outline: none;
   transition: all 0.3s ease;
 }
 
 .form-input:focus {
-  background: rgba(34, 211, 238, 0.05);
+  background: rgba(34, 211, 238, 0.04);
   border-color: rgba(34, 211, 238, 0.5);
   box-shadow: 0 0 15px rgba(34, 211, 238, 0.1);
 }
 
 .form-input::placeholder {
-  color: rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.1);
 }
 
-/* Custom Scrollbar for the Directory */
-.custom-scrollbar::-webkit-scrollbar {
-  width: 4px;
-}
-.custom-scrollbar::-webkit-scrollbar-track {
-  background: transparent;
-}
+/* Scrollbar */
+.custom-scrollbar::-webkit-scrollbar { width: 4px; }
 .custom-scrollbar::-webkit-scrollbar-thumb {
   background: rgba(34, 211, 238, 0.1);
   border-radius: 10px;
 }
-.custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: rgba(34, 211, 238, 0.3);
-}
 
-/* Animation for the background blobs */
 @keyframes float {
-  0%, 100% { transform: translateY(0px) scale(1); }
-  50% { transform: translateY(-20px) scale(1.05); }
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
 }
-
-.animate-float {
-  animation: float 10s ease-in-out infinite;
-}
+.animate-float { animation: float 10s ease-in-out infinite; }
