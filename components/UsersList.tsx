@@ -104,7 +104,7 @@ export default function UsersList() {
               <tbody className="divide-y divide-gray-200">
                 {users.map((user) => (
                   <tr
-                    key={user.id}
+                    key={user.userId}
                     className="hover:bg-blue-50 transition-colors duration-150"
                   >
                     <td className="px-6 py-4 text-sm text-gray-900">
