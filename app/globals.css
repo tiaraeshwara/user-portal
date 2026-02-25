@@ -9,7 +9,7 @@
 
 body {
   background-color: var(--bg-deep);
-  color: #090909;
+  color: #ffffff; /* Changed to white for better visibility on dark theme */
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased;
 }
@@ -28,11 +28,38 @@ body {
   background: rgba(255, 255, 255, 0.04);
 }
 
-/* Subtle Text Gradients */
-.text-gradient-cyan {
-  background: linear-gradient(to right, #ffffff, #22d3ee);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+/* --- Futuristic Form Elements --- */
+
+.form-label {
+  display: block;
+  font-size: 10px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: rgba(34, 211, 238, 0.6);
+  margin-bottom: 8px;
+}
+
+.form-input {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 14px 18px;
+  color: white;
+  font-size: 14px;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.form-input:focus {
+  background: rgba(34, 211, 238, 0.05);
+  border-color: rgba(34, 211, 238, 0.5);
+  box-shadow: 0 0 15px rgba(34, 211, 238, 0.1);
+}
+
+.form-input::placeholder {
+  color: rgba(255, 255, 255, 0.2);
 }
 
 /* Custom Scrollbar for the Directory */
