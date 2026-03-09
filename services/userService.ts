@@ -95,11 +95,24 @@ export async function createUser(
     });
 
     if (!response.ok) {
-      throw new Error(`Failed to create user: ${response.statusText}`);
+      let backendMessage = response.statusText;
+      try {
+        const errorBody = await response.json();
+        backendMessage =
+          errorBody?.error || errorBody?.message || backendMessage;
+      } catch {
+        // Keep statusText when response isn't JSON.
+      }
+
+      throw new Error(`Failed to create user: ${backendMessage}`);
     }
 
-    const data = await response.json();
-    return data;
+    if (response.status === 204) {
+      return { success: true };
+    }
+
+    const text = await response.text();
+    return text ? JSON.parse(text) : { success: true };
   } catch (error) {
     console.error("Error creating user:", error);
     throw error;
@@ -143,11 +156,25 @@ export async function deleteUser(userId: string): Promise<ApiResponse<null>> {
     });
 
     if (!response.ok) {
-      throw new Error(`Failed to delete user: ${response.statusText}`);
+      let backendMessage = response.statusText;
+      try {
+        const errorBody = await response.json();
+        backendMessage =
+          errorBody?.error || errorBody?.message || backendMessage;
+      } catch {
+        // Keep statusText when response isn't JSON.
+      }
+
+      throw new Error(`Failed to delete user: ${backendMessage}`);
     }
 
-    const data = await response.json();
-    return data;
+    // Some delete endpoints return empty bodies; normalize to success response.
+    if (response.status === 204) {
+      return { success: true, data: null };
+    }
+
+    const text = await response.text();
+    return text ? JSON.parse(text) : { success: true, data: null };
   } catch (error) {
     console.error("Error deleting user:", error);
     throw error;

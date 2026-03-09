@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { User, PaginatedResponse } from "@/types/user";
 import { getAllUsers } from "@/services/userService";
 
@@ -96,7 +96,7 @@ export default function UsersList() {
                   <th className="px-6 py-4 text-left text-sm font-semibold text-gray-900">
                     Gender
                   </th>
-                   <th className="px-6 py-4 text-left text-sm font-semibold text-gray-900">
+                  <th className="px-6 py-4 text-left text-sm font-semibold text-gray-900">
                     Age
                   </th>
                 </tr>

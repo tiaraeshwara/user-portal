@@ -3,6 +3,19 @@ import { NextRequest, NextResponse } from "next/server";
 const USER_SERVICE_URL =
   process.env.USER_SERVICE_URL || "http://localhost:8080";
 
+async function parseBackendResponse(response: Response) {
+  const text = await response.text();
+  if (!text) {
+    return null;
+  }
+
+  try {
+    return JSON.parse(text);
+  } catch {
+    return text;
+  }
+}
+
 // GET /api/users - Get all users with pagination or search by ID/email
 export async function GET(request: NextRequest) {
   try {
@@ -87,7 +100,7 @@ export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
 
-    const response = await fetch(`${USER_SERVICE_URL}/createuser`, {
+    const response = await fetch(`${USER_SERVICE_URL}/add-user`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -95,15 +108,29 @@ export async function POST(request: NextRequest) {
       body: JSON.stringify(body),
     });
 
+    const parsed = await parseBackendResponse(response);
+
     if (!response.ok) {
       return NextResponse.json(
-        { error: `Backend returned ${response.status}` },
+        {
+          error:
+            (typeof parsed === "object" &&
+              parsed !== null &&
+              "message" in parsed &&
+              typeof parsed.message === "string" &&
+              parsed.message) ||
+            (typeof parsed === "object" &&
+              parsed !== null &&
+              "error" in parsed &&
+              typeof parsed.error === "string" &&
+              parsed.error) ||
+            `Backend returned ${response.status}`,
+        },
         { status: response.status },
       );
     }
 
-    const data = await response.json();
-    return NextResponse.json(data);
+    return NextResponse.json(parsed ?? { success: true });
   } catch (error) {
     console.error("API Error:", error);
     return NextResponse.json(

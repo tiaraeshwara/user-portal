@@ -6,7 +6,12 @@ import { getUserById, getUserByEmail } from "@/services/userService";
 
 type SearchType = "id" | "email";
 
-export default function UserSearch() {
+interface UserSearchProps {
+  onUserFound?: (user: User) => void;
+  onClear?: () => void;
+}
+
+export default function UserSearch({ onUserFound, onClear }: UserSearchProps) {
   const [searchType, setSearchType] = useState<SearchType>("id");
   const [searchValue, setSearchValue] = useState("");
   const [result, setResult] = useState<User | null>(null);
@@ -37,17 +42,22 @@ export default function UserSearch() {
       }
 
       if (response.data) {
-        setResult({
+        const normalizedUser = {
           ...response.data,
           name:
             response.data.name ||
             `${response.data.firstName} ${response.data.lastName || ""}`.trim(),
-        });
+        };
+
+        setResult(normalizedUser);
+        onUserFound?.(normalizedUser);
       } else {
         setError(response.message || "User not found");
+        onClear?.();
       }
     } catch (err) {
       setError(err instanceof Error ? err.message : "Failed to search user");
+      onClear?.();
     } finally {
       setLoading(false);
     }
@@ -138,11 +148,11 @@ export default function UserSearch() {
           <div className="mt-5 p-5 bg-gradient-to-br from-green-50 to-emerald-50 border border-green-300 rounded-lg shadow-sm">
             <p className="font-semibold text-green-800 mb-4">✓ User Found</p>
             <div className="space-y-3">
-              {result.id && (
+              {(result.id || result.userId) && (
                 <div className="flex justify-between items-center py-2 border-b border-green-200">
                   <span className="text-sm font-medium text-gray-700">ID:</span>
                   <span className="text-sm font-semibold text-gray-900">
-                    {result.id}
+                    {result.id || result.userId}
                   </span>
                 </div>
               )}
