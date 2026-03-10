@@ -276,11 +276,11 @@ export default function Home() {
           >
             <div className="glass-panel rounded-[2rem] p-8 border-cyan-500/10 bg-cyan-500/[0.02]">
               <h3 className="text-xs font-black text-cyan-400 uppercase tracking-[0.2em] mb-4">
-                Initialization
+                ADD USER
               </h3>
 
               <p className="text-white/40 text-xs leading-relaxed mb-6 font-light italic">
-                Add a new identity node to the encrypted global directory.
+                Create a new user profile by entering their basic details.
               </p>
 
               <button
@@ -291,15 +291,7 @@ export default function Home() {
               </button>
             </div>
 
-            <div className="glass-panel rounded-[2rem] p-8 opacity-50">
-              <h4 className="text-[10px] font-bold uppercase tracking-widest text-white/30 mb-2">
-                Network Load
-              </h4>
-
-              <div className="h-1 w-full bg-white/5 rounded-full overflow-hidden">
-                <div className="h-full bg-cyan-500/40 w-[65%]" />
-              </div>
-            </div>
+           
           </motion.aside>
 
           <motion.section variants={itemVariants} className="lg:col-span-6">
@@ -360,7 +352,7 @@ export default function Home() {
                         </h4>
 
                         <p className="text-white/30 text-[10px] font-mono">
-                          {getUserIdentifier(foundUser) || "No ID"}
+                          {foundUser?.email || "No Email"}
                         </p>
                       </div>
 
@@ -369,14 +361,14 @@ export default function Home() {
                           onClick={() => openModal("update")}
                           className="w-full py-4 bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl text-white text-[10px] font-black uppercase tracking-widest transition-all"
                         >
-                          Modify Record
+                          Modify User
                         </button>
 
                         <button
                           onClick={() => openModal("delete")}
                           className="w-full py-4 bg-red-500/5 hover:bg-red-500/20 border border-red-500/10 text-red-500 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all"
                         >
-                          Purge Record
+                          Delete User
                         </button>
                       </div>
 

@@ -114,7 +114,7 @@ export default function UserSearch({ onUserFound, onClear }: UserSearchProps) {
               placeholder={
                 searchType === "id" ? "e.g., user123" : "e.g., user@example.com"
               }
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all duration-200 shadow-sm"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg text-black placeholder:text-gray-500 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all duration-200 shadow-sm"
             />
           </div>
 
@@ -148,14 +148,6 @@ export default function UserSearch({ onUserFound, onClear }: UserSearchProps) {
           <div className="mt-5 p-5 bg-gradient-to-br from-green-50 to-emerald-50 border border-green-300 rounded-lg shadow-sm">
             <p className="font-semibold text-green-800 mb-4">✓ User Found</p>
             <div className="space-y-3">
-              {(result.id || result.userId) && (
-                <div className="flex justify-between items-center py-2 border-b border-green-200">
-                  <span className="text-sm font-medium text-gray-700">ID:</span>
-                  <span className="text-sm font-semibold text-gray-900">
-                    {result.id || result.userId}
-                  </span>
-                </div>
-              )}
               {result.firstName && (
                 <div className="flex justify-between items-center py-2 border-b border-green-200">
                   <span className="text-sm font-medium text-gray-700">
